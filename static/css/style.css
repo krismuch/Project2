@@ -1,0 +1,158 @@
+.clearfix::after{
+    content: "";
+    display: block;
+    clear: both;
+}
+.content{
+    padding:10px;
+    background-color: white;
+    height: 100%;
+}
+.map{
+    width:70%;
+}
+#map,
+body,
+html {
+    height: 90%;
+}
+/*
+.navBar{
+    background-color: rgb(141, 231, 186);
+    font-size:16px;
+    height:56px;
+    position: relative;
+}
+.navBar ul{
+    float:right;
+    margin-top:0px
+}
+.navBar li {
+    display:inline-block;
+    padding: 20px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+.navBar a {
+    color: #000;
+    text-decoration: none;
+}
+.navBar #left{
+    float:left;
+    padding: 20px;
+    margin-left: 40px;
+    cursor: pointer;
+    background: #fff;
+}
+
+.dropbtn {
+  background-color: rgb(141, 231, 186);
+  font-size: 16px;
+  border: none;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+
+body{
+    background-color:grey;
+}
+.main{
+    margin:20px;
+    background-color:white;
+}
+.main2{
+    margin:20px;
+    background-color:white;
+}
+.main2 img{
+    width:95%;
+}
+
+iframe{
+    width:90%;
+    height:1000%;
+}
+
+.land{
+    position: absolute;
+    left:60px;
+    top:15px;
+    background-color:white;
+}
+.vis{
+    background-color:white;
+}
+.vis a{
+    display:inline;
+}
+img{
+    border-style:solid;
+    border-width:5px;
+    border-color: white;
+}
+.vis img{
+    display:inline-block;
+    width: 22%;
+}
+p{
+    font:12%;
+}
+h1{
+    color:rgb(103, 174, 221);
+    font-size:36px;
+    text-align: center; 
+}
+h2{
+    color:rgb(103, 174, 221);
+    font-size:28px;
+    text-align: center; 
+}
+#current{
+    border-color:rgb(141, 231, 186);
+}
+/*
+@media (min-width:800px){
+    .main{
+    margin:20px;
+    background-color:white;
+    width:55%;
+    float:left;
+    }
+    .main2 img{
+        width:45%;
+    }
+    .vis{
+        background-color:white;
+        float:right;
+        width:35%;
+    }
+    .vis a{
+        display:inline;
+    }
+    .vis img{
+        width:45%;
+    }
+}*/
