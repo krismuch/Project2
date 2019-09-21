@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <html>
+        <head>
+            <title>Precipitation</title>
+            <!-- Include fusioncharts core library -->
+            <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+            <!-- Include fusion theme -->
+            <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+            <script type="text/javascript">
+                FusionCharts.ready(function() {
+                    var csatGauge = new FusionCharts({
+                        "type": "angulargauge",
+                        "renderAt": "chart-container",
+                        "width": "450",
+                        "height": "250",
+                        "dataFormat": "json",
+                        "dataSource": {
+                            // Chart Configuration
+                            "chart": {
+                                "caption": "Amount of Precipitation",
+                                "lowerLimit": "0",
+                                "upperLimit": "8",
+                                "showValue": "1",
+                                "numberSuffix": " inches",
+                                "theme": "fusion",
+                                "showToolTip": "0"
+                            },
+                            // Chart Data
+                            "colorRange": {
+                                "color": [{
+                                    "minValue": "0",
+                                    "maxValue": "2",
+                                    "code": "#F2726F"
+                                }, {
+                                    "minValue": "2",
+                                    "maxValue": "6",
+                                    "code": "#FFC533"
+                                }, {
+                                    "minValue": "6",
+                                    "maxValue": "8",
+                                    "code": "#62B58F"
+                                }]
+                            },
+                            "dials": {
+                                "dial": [{
+                                    "value": "10"
+                                }]
+                            }
+                        }
+                    });
+                    csatGauge.render();
+                });
+            </script>
+        </head>
+        <body>
+            <div id="chart-container">An angular gauge will load here!</div>
+        </body>
+        </html>
