@@ -15,7 +15,7 @@ from flask_sqlalchemy import SQLAlchemy
 #################################################
 # Database Setup
 #################################################
-engine = create_engine("sqlite:///<enterdatabasename>.sqlite")
+engine = create_engine("sqlite:///data_farming.sqlite")
 
 # reflect an existing database into a new model
 Base = automap_base()
@@ -23,7 +23,9 @@ Base = automap_base()
 Base.prepare(engine, reflect=True)
 
 # Save reference to the table
-<tableref> = Base.classes.<tablename>
+NC_COUNTIES = Base.classes.NC_COUNTIES
+NC_MONTHLY_WEATHER = Base.classes.NC_MONTHLY_WEATHER
+PLANT_CHARACTERISTICS = Base.classes.PLANT_CHARACTERISTICS
 
 #################################################
 # Flask Setup
@@ -44,11 +46,11 @@ def names():
     """Return a list of county names."""
 
     # Use Pandas to perform the sql query
-    stmt = db.session.query(<countylist>).statement
+    stmt = db.session.query(NC_COUNTIES).statement
     df = pd.read_sql_query(stmt, db.session.bind)
 
     # Return a list of the column names (sample names)
-    #return jsonify(list(df.columns)[2:])
+    # return jsonify(list(df.columns)[2:])
 
 @app.route("/plant")
 def names():
