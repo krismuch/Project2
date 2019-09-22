@@ -19,7 +19,7 @@ for page in page_list:
     #plants.display_plant_data(plant_data)
     insert_statement = f"INSERT INTO PLANT_DETAILS(INSERT_DATETIME, PLANT_ID, SLUG, SCIENTIFIC_NAME, PLANT_LINK, COMPLETE_DATA, COMMON_NAME, PLANT_DETAILS_JSON) VALUES('{dt.now()}', {plant_data['id']}, '"+plant_data['slug']+"', '"+plant_data['scientific_name']+"', '"+plant_data['link']+"', "+str(plant_data['complete_data'])+", '"+plant_data['common_name']+"', NULL);"
     print(insert_statement)
-    if page > 3:
+    if page > 10:
         break
 
 

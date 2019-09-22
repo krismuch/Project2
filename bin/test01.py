@@ -2,7 +2,7 @@ import requests
 import json
 import sqlite3 as sq
 
-conn = sq.connect("../db/data_farming.db")
+conn = sq.connect("../db/data_farming_updated.db")
 c=conn.cursor()
 
 c.execute("""CREATE TABLE IF NOT EXISTS PLANT_META_DATA (rowid                      integer, 
@@ -55,6 +55,8 @@ for page in page_range:
         complete_data = plant["complete_data"] if "complete_data" in plant else "NULL"
         common_name = plant["common_name"] if "common_name" in plant else "NULL"
 
+        if "common_name" not in plant:
+            continue
         metadata_insert_statement = f"insert into plant_meta_data(rowid, plant_id, slug, scientific_name, link, complete_data, common_name) values(?,?,?,?,?,?,?)"
         #
         metadata_record = (record_id, plant_id, slug, scientific_name, link, complete_data, common_name)
@@ -84,7 +86,7 @@ for page in page_range:
     except Exception as e:
         print(type(e).__name__)
     conn.commit()
-    if page >= 10:
+    if page >= 100:
         break
 
 conn.commit()
