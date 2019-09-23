@@ -44,13 +44,17 @@
 }
 .map{
     width:70%;
+    float:left;
 }
 #map,
 body,
 html {
     height: 90%;
 }
-
+#gaiges{
+    width:30%;
+    float:right;
+}
 /*
 .navBar{
     background-color: rgb(141, 231, 186);
