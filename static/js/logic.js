@@ -15,7 +15,7 @@ accessToken: API_KEY
 }).addTo(myMap);
 
 var link = "static/data/counties.geojson";
-
+var selection = "";
 // Grabbing our GeoJSON data..
 d3.json(link, function(data) {
     temp = data.features.filter(a=>{return a.properties["STATE"]==37})
@@ -24,7 +24,7 @@ d3.json(link, function(data) {
         style: function(feature) {
             return {
                 color: "white",
-                fillColor: "blue",
+                fillColor: feature.properties["NAME"]==selection?"green":"blue",
                 fillOpacity: 0.5,
                 weight: 1.5
             };
@@ -45,14 +45,24 @@ d3.json(link, function(data) {
                 layer.setStyle({
                     fillOpacity: 0.5
                 });
-            }/*,
+                if(feature.properties["NAME"]!=selection){
+                    layer.setStyle({
+                        fillColor: "blue"
+                    })
+                }
+                //console.log(selection);
+            },
             click: function(event) {
-              map.fitBounds(event.target.getBounds());
-            }*/
+                layer = event.target;
+                layer.setStyle({
+                    fillColor:"green"
+                });
+                selection = feature.properties["NAME"];
+              //map.fitBounds(event.target.getBounds());
+            }
           });
-          layer.bindPopup("<h1>"+feature.properties["STATE"]+"</h1>");
+          layer.bindPopup("<h1>"+feature.properties["NAME"]+"</h1>");
     
         }
-    }).addTo(myMap);
-  
+    }).addTo(myMap);  
 });
