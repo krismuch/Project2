@@ -2,6 +2,7 @@ FusionCharts.ready(function() {
     var x = 6;
     var minPercip = 2;
     var maxPercip = 8;
+    var buffer = 1.2;
     var csatGauge = new FusionCharts({
         "type": "angulargauge",
         "renderAt": "dial",
@@ -13,7 +14,7 @@ FusionCharts.ready(function() {
             "chart": {
                 "caption": "Amount of Precipitation",
                 "lowerLimit": "0",
-                "upperLimit": maxPercip+2,
+                "upperLimit": maxPercip+minPercip,
                 "showValue": "1",
                 "numberSuffix": " inches",
                 "theme": "fusion",
@@ -25,14 +26,27 @@ FusionCharts.ready(function() {
                     "minValue": "0",
                     "maxValue": minPercip,
                     "code": "#F2726F"
-                }, {
+                }, 
+                {
                     "minValue": minPercip,
+                    "maxValue": minPercip+buffer,
+                    "code": "#FFC533"
+                }, 
+                {
+                    "minValue": minPercip+buffer,
+                    "maxValue": maxPercip-buffer,
+                    "code": "#62B58F"
+                },
+                {
+                    "minValue": maxPercip-buffer,
                     "maxValue": maxPercip,
                     "code": "#FFC533"
-                }, {
+                },
+                {
                     "minValue": maxPercip,
-                    "maxValue": maxPercip+2,
-                    "code": "#62B58F"
+                    "maxValue": maxPercip+minPercip,
+                    "code": "#F2726F"
+                    //"code": "#62B58F"
                 }]
             },
             "dials": {

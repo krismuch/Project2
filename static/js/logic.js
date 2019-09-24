@@ -17,52 +17,63 @@ accessToken: API_KEY
 var link = "static/data/counties.geojson";
 var selection = "";
 // Grabbing our GeoJSON data..
-d3.json(link, function(data) {
-    temp = data.features.filter(a=>{return a.properties["STATE"]==37})
-    L.geoJson(temp, {
-        // Style each feature (in this case a neighborhood)
-        style: function(feature) {
-            return {
-                color: "white",
-                fillColor: feature.properties["NAME"]==selection?"green":"blue",
-                fillOpacity: 0.5,
-                weight: 1.5
-            };
-        },
-        // Called on each feature
-        
-        onEachFeature: function(feature, layer) {
-          // Set mouse events to change map styling
-          layer.on({
-            mouseover: function(event) {
-                layer = event.target;
-                layer.setStyle({
-                    fillOpacity: 0.9
-                });
+function updateMap(){
+    d3.json(link, function(data) {
+        temp = data.features.filter(a=>{return a.properties["STATE"]==37})
+        L.geoJson(temp, {
+            // Style each feature (in this case a neighborhood)
+            style: function(feature) {
+                return {
+                    color: "white",
+                    fillColor: feature.properties["NAME"]==selection?"green":"blue",
+                    fillOpacity: 0.5,
+                    weight: 1.5
+                };
             },
-            mouseout: function(event) {
-                layer = event.target;
-                layer.setStyle({
-                    fillOpacity: 0.5
-                });
-                if(feature.properties["NAME"]!=selection){
+            // Called on each feature
+            
+            onEachFeature: function(feature, layer) {
+            // Set mouse events to change map styling
+            layer.on({
+                mouseover: function(event) {
+                    layer = event.target;
                     layer.setStyle({
-                        fillColor: "blue"
-                    })
+                        fillOpacity: 0.9
+                    });
+                },
+                mouseout: function(event) {
+                    layer = event.target;
+                    layer.setStyle({
+                        fillOpacity: 0.5
+                    });
+                    if(feature.properties["NAME"]!=selection){
+                        layer.setStyle({
+                            fillColor: "blue"
+                        })
+                    }
+                    //console.log(selection);
+                },
+                click: function(event) {
+                    layer = event.target;
+                    layer.setStyle({
+                        fillColor:"green"
+                    });
+                    if(selection!=feature.properties["NAME"]){
+                        selection = feature.properties["NAME"];
+                    }
+                    else{
+                        selection = "";
+                    }
+                    console.log(selection);
+                    var t = document.getElementById("activeCounty");
+                    t.innerHTML = selection;
+                //map.fitBounds(event.target.getBounds());
                 }
-                //console.log(selection);
-            },
-            click: function(event) {
-                layer = event.target;
-                layer.setStyle({
-                    fillColor:"green"
-                });
-                selection = feature.properties["NAME"];
-              //map.fitBounds(event.target.getBounds());
+            });
+            layer.bindPopup("<h1>"+feature.properties["NAME"]+"</h1>");
+        
             }
-          });
-          layer.bindPopup("<h1>"+feature.properties["NAME"]+"</h1>");
-    
-        }
-    }).addTo(myMap);  
-});
+        }).addTo(myMap);  
+    });
+}
+updateMap();
