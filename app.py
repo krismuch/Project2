@@ -8,30 +8,34 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
 
+import sqlite3 as sql
 from flask import Flask, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
-
 
 #################################################
 # Database Setup
 #################################################
-engine = create_engine("sqlite:///data_farming.sqlite")
+
+#try:
+#    engine = create_engine("sqlite:///data_farming.db")
+#   print("connectedtosqlitedb")
+#except expression as identifier:
+#    print(identifier)
+
 
 # reflect an existing database into a new model
-Base = automap_base()
+#Base = automap_base()
 # reflect the tables
-Base.prepare(engine, reflect=True)
+#Base.prepare(engine, reflect=True)
 
 # Save reference to the table
-NC_COUNTIES = Base.classes.NC_COUNTIES
-NC_MONTHLY_WEATHER = Base.classes.NC_MONTHLY_WEATHER
-PLANT_CHARACTERISTICS = Base.classes.PLANT_CHARACTERISTICS
+#NC_MONTHLY_WEATHER = Base.classes.NC_MONTHLY_WEATHER
+#PLANT_CHARACTERISTICS = Base.classes.PLANT_CHARACTERISTICS
 
 #################################################
 # Flask Setup
 #################################################
 app = Flask(__name__)
-
 
 #################################################
 # Flask Routes
@@ -41,31 +45,23 @@ def index():
     """Return the homepage."""
     return render_template("index.html")
 
-@app.route("/county")
+@app.route("/plantchoices")
 def names():
-    """Return a list of county names."""
+    """Return a list of distinct plant names."""
 
-    # Use Pandas to perform the sql query
-    stmt = db.session.query(NC_COUNTIES).statement
-    df = pd.read_sql_query(stmt, db.session.bind)
+    with sql.connect("db//data_farming.db") as con:
+        cur = con.cursor()
+        cur.execute("select distinct common_name from PLANT_CHARACTERISTICS")
 
-    # Return a list of the column names (sample names)
-    # return jsonify(list(df.columns)[2:])
+        rows = cur.fetchall()
+ 
+        for row in rows:
+            print(row)
 
-@app.route("/plant")
-def names():
-    """Return a list of plant names."""
+        return jsonify(rows)
+                
+        #con.commit()
+        #msg = "Record successfully added"
 
-    # Use Pandas to perform the sql query
-    stmt = db.session.query(<plants>).statement
-    df = pd.read_sql_query(stmt, db.session.bind)
-
-    # Return a list of the column names (sample names)
-    #return jsonify(list(df.columns)[2:])
-
-@app.route("/<plant>/<year>/<month>")
-def names():
-    """Return a list of plant names."""
-    countylist
-    plantlist
-    <plant>/<year>/<month>
+if __name__ == "__main__":
+    app.run()
