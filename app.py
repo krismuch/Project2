@@ -61,6 +61,7 @@ def plant_metadata(plant):
     print(plant)
     with sql.connect("db//data_farming.db") as con:
         cur = con.cursor()
+        plant = plant.replace("'","''")
         cur.execute(f"SELECT common_name, min_temp_deg_f, frost_free_days, min_precip_inches, max_precip_inches, drought_tolerance FROM PLANT_CHARACTERISTICS WHERE UPPER(common_name)='{plant.upper()}'")
 
         results = cur.fetchall()
