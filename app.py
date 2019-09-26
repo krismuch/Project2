@@ -46,7 +46,7 @@ def weather(year_, month_):
     
     with sql.connect("db//data_farming.db") as con:
         cur = con.cursor()
-        cur.execute(f"SELECT c.county, w.tmax, w.tmin, w.prcp, w.year, w.month FROM NC_COUNTIES AS c INNER JOIN NC_MONTHLY_WEATHER AS w ON w.FIPS = c.FIPS WHERE year={year_} and month={month_}")
+        cur.execute(f"SELECT c.county, w.tmax, w.tmin, w.prcp, w.year, w.month-1 as month2 FROM NC_COUNTIES AS c INNER JOIN NC_MONTHLY_WEATHER AS w ON w.FIPS = c.FIPS WHERE year={year_} and month2={month_}")
         
         rows = cur.fetchall()
  
