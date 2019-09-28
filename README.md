@@ -8,4 +8,4 @@ It includes a Python Flask–powered RESTful API, HTML/CSS, JavaScript, and a SQ
 
 Uses multiple JS library not covered in class, such as Bootstrap, Requests, Leaflet, FusionCharts, and JSON. 
 
-The datasets have well over 100 records, 1441 plant records and 26100 weather records. 
+The datasets have well over 100 records, 1431 plant records and 26100 weather records. 
