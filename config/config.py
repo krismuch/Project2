@@ -1,7 +1,6 @@
 config = {
     "base_url":"https://trefle.io",
-    "page_size":1000,
-    "token":"MUVzYkNhNDYraDBGcnJPVG5ZckRaZz09"
+    "page_size":1000
 }
 
 db_config={
