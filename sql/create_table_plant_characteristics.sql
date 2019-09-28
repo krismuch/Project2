@@ -1,4 +1,4 @@
-drop table PLANT_CHARACTERISTICS;
+drop table if exists PLANT_CHARACTERISTICS;
 
 create table PLANT_CHARACTERISTICS
 as
