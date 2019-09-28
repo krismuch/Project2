@@ -1,4 +1,4 @@
-# Project2
+# Project 2
 
 Frances, Jake, Sagi, and Kristen
 
