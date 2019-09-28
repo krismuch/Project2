@@ -38,3 +38,5 @@ where json_extract(jsond.json_data, '$.main_species.growth.temperature_minimum.d
 	  json_extract(jsond.json_data, '$.main_species.growth.ph_minimum') is not null or
 	  json_extract(jsond.json_data, '$.main_species.growth.ph_maximum') is not null
 order by rowid;
+
+update PLANT_CHARACTERISTICS set image_url = ifnull(image_url, 'https://barrreport.com/data/showcase/11/11351-fbe74bfb6387d2375a5e5c75377b9bde.jpg');
