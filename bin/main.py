@@ -1,10 +1,13 @@
+import sys
+sys.path.append("..")
+
 import sqlite3 as sq
 import os
 import requests
 import json
 
 from datetime import datetime
-from config import db_config, config, NUM_PAGES_TO_EXTRACT
+from config.config import db_config, config, NUM_PAGES_TO_EXTRACT
 
 log_list = []
 start_date_time = datetime.now().strftime("%d-%B-%Y_%H-%M-%S_%p")
@@ -143,30 +146,35 @@ if __name__ == "__main__":
             printf(f"Processing page {page} of {NUM_PAGES_TO_EXTRACT}", message_type="INFO", display_on_screen=True)
             converted_plant_meta_data_list = []
             plant_data_json_list = []
-            page_data_json = get_response_json(query="/api/plants", config=config, page_num=page)
-            for plant_data in page_data_json:
-                printf(plant_data)
-                ##### Step 5 > Having fetched the METADATA log the METADATA into the PLANT_META_DATA table
-                converted_plant_meta_data = get_meta_data_list(plant_data, record_id)
-                converted_plant_meta_data_list.append(converted_plant_meta_data)
+            try:
+                page_data_json = get_response_json(query="/api/plants", config=config, page_num=page)
+                for plant_data in page_data_json:
+                    printf(plant_data)
+                    ##### Step 5 > Having fetched the METADATA log the METADATA into the PLANT_META_DATA table
+                    converted_plant_meta_data = get_meta_data_list(plant_data, record_id)
+                    converted_plant_meta_data_list.append(converted_plant_meta_data)
 
-                ##### Step 6 > Extract individual plant details using the ID column returned in the METADATA
-                #####          Only if common_name data is available
-                plant_id = plant_data["id"]
-                if plant_data["common_name"]:
-                    plant_data_json = get_response_json(query=f"/api/plants/{plant_id}", config=config, page_num=1)
-                    plant_data_json_record = [record_id, json.dumps(plant_data_json)]
-                    plant_data_json_list.append(plant_data_json_record)
+                    ##### Step 6 > Extract individual plant details using the ID column returned in the METADATA
+                    #####          Only if common_name data is available
+                    plant_id = plant_data["id"]
+                    if plant_data["common_name"]:
+                        try:
+                            plant_data_json = get_response_json(query=f"/api/plants/{plant_id}", config=config, page_num=1)
+                            plant_data_json_record = [record_id, json.dumps(plant_data_json)]
+                            plant_data_json_list.append(plant_data_json_record)
+                        except Exception as exc:
+                            printf(f"Exception of type {type(exc).__name__} occured while retrieving plant details for plant_id {plant_id}", "ERROR")
+                            printf(f"Details of exception are {str(exc)}", "ERROR")
+                    record_id = record_id + 1
 
-                record_id = record_id + 1
-
-            ##### Step 7 > Log the extracted data into tables to be later used in visualizatons
-            plant_meta_data_insert_statement = f"insert into plant_meta_data(rowid, plant_id, slug, scientific_name, link, complete_data, common_name) values(?,?,?,?,?,?,?)"
-            insert_data(conn, "PLANT_META_DATA", plant_meta_data_insert_statement, converted_plant_meta_data_list)
-            plant_json_data_insert_statement = f"insert into PLANT_JSON_DATA (meta_data_id, json_data) values(?, ?)"
-            insert_data(conn, "PLANT_JSON_DATA", plant_json_data_insert_statement, plant_data_json_list)
-
-
+                ##### Step 7 > Log the extracted data into tables to be later used in visualizatons
+                plant_meta_data_insert_statement = f"insert into plant_meta_data(rowid, plant_id, slug, scientific_name, link, complete_data, common_name) values(?,?,?,?,?,?,?)"
+                insert_data(conn, "PLANT_META_DATA", plant_meta_data_insert_statement, converted_plant_meta_data_list)
+                plant_json_data_insert_statement = f"insert into PLANT_JSON_DATA (meta_data_id, json_data) values(?, ?)"
+                insert_data(conn, "PLANT_JSON_DATA", plant_json_data_insert_statement, plant_data_json_list)
+            except Exception as exc:
+                printf(f"Exception of type {type(exc).__name__} occured on page {page}")
+                printf(f"{str(exc)}")
     else:
         printf("Could not determine the total number of pages. Exiting data retrieval")
 
