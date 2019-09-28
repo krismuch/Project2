@@ -13,16 +13,23 @@ function buildMetadata(plant) {
         // Use d3 to select the panel with id of `#sample-metadata`
         // Select which element to display the sample
         var panel = d3.select("#detail");
-
+        var pan = document.getElementById("image");
         // Use `.html("") to clear any existing metadata
         panel.html("");
         
         // Use `Object.entries` to add each key and value pair to the panel
         // Hint: Inside the loop, you will need to use d3 to append new
         // tags for each key-value in the metadata.
-        
+        var i = 0;
         Object.entries(data).forEach(function([key, value]) {
-            panel.append("h5").text(`${key}: ${value}`);
+            if(i<6){
+                panel.append("h5").text(`${key}: ${value}`);
+            }
+            if(i==6){
+                console.log(value);
+                pan.src = value;
+            }
+            i++;
         });
         FusionCharts.ready(drawCharts);
         colorUpdate();
