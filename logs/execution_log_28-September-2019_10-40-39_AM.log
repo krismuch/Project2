@@ -1,0 +1,21 @@
+28-Sep-2019 10:40:39 AM [::INFO::]: Successfully connected to SQLite DB data_farming_new.db
+28-Sep-2019 10:40:39 AM [::INFO::]: Successfully executed the script create_plant_data.sql
+28-Sep-2019 10:40:40 AM [::INFO::]: GET /api/plants ... <Response [200]>
+28-Sep-2019 10:40:40 AM [::INFO::]: There are a total of 73588 pages worth of responses
+28-Sep-2019 10:40:40 AM [::INFO::]: Processing page 1 of 2
+28-Sep-2019 10:40:40 AM [::INFO::]: GET /api/plants ... <Response [200]>
+28-Sep-2019 10:40:40 AM [::INFO::]: {'slug': 'paspalum-dilatatum', 'scientific_name': 'Paspalum dilatatum', 'link': 'http://trefle.io/api/plants/162791', 'id': 162791, 'complete_data': True, 'common_name': 'dallisgrass'}
+28-Sep-2019 10:40:41 AM [::INFO::]: GET /api/plants/162791 ... <Response [200]>
+28-Sep-2019 10:40:41 AM [::INFO::]: {'slug': 'poa-eminens', 'scientific_name': 'Poa eminens', 'link': 'http://trefle.io/api/plants/168621', 'id': 168621, 'complete_data': True, 'common_name': 'largeflower speargrass'}
+28-Sep-2019 10:40:41 AM [::INFO::]: GET /api/plants/168621 ... <Response [200]>
+28-Sep-2019 10:40:41 AM [::INFO::]: 2 Rows Successfully inserted into PLANT_META_DATA table
+28-Sep-2019 10:40:42 AM [::INFO::]: 2 Rows Successfully inserted into PLANT_JSON_DATA table
+28-Sep-2019 10:40:42 AM [::INFO::]: Processing page 2 of 2
+28-Sep-2019 10:40:42 AM [::INFO::]: GET /api/plants ... <Response [200]>
+28-Sep-2019 10:40:42 AM [::INFO::]: {'slug': 'gaillardia-pulchella', 'scientific_name': 'Gaillardia pulchella', 'link': 'http://trefle.io/api/plants/138234', 'id': 138234, 'complete_data': True, 'common_name': 'Indian blanket'}
+28-Sep-2019 10:40:43 AM [::INFO::]: GET /api/plants/138234 ... <Response [200]>
+28-Sep-2019 10:40:43 AM [::INFO::]: {'slug': 'helenium-flexuosum', 'scientific_name': 'Helenium flexuosum', 'link': 'http://trefle.io/api/plants/141410', 'id': 141410, 'complete_data': True, 'common_name': 'purplehead sneezeweed'}
+28-Sep-2019 10:40:43 AM [::INFO::]: GET /api/plants/141410 ... <Response [200]>
+28-Sep-2019 10:40:43 AM [::INFO::]: 2 Rows Successfully inserted into PLANT_META_DATA table
+28-Sep-2019 10:40:43 AM [::INFO::]: 2 Rows Successfully inserted into PLANT_JSON_DATA table
+28-Sep-2019 10:40:44 AM [::INFO::]: Processing completed
