@@ -18,6 +18,8 @@
         <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
         <!-- Fusioncharts Theme -->
         <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
             
     </head>
 
@@ -43,7 +45,7 @@
                 </div>
             </div>
             </br>
-            <div id="sliders">
+            <div id="sliders" style="width:60%">
                 <div class="slidecontainer">
                     YEAR: <span id="year"></span>
                     <input type="range" min="1999" max="2019" value="2009" class="slider" id="yearRange">
@@ -59,30 +61,38 @@
                     output.innerHTML = slider.value;
                     slider.oninput = function() {
                         output.innerHTML = this.value;
+                        updateWeather();
+                        //colorUpdate();
+                        FusionCharts.ready(drawCharts);
+                        //console.log("here2");
                     }
                     output2.innerHTML = cal[slider2.value];
                     slider2.oninput=function(){
                         output2.innerHTML = cal[this.value];
+                        updateWeather();
+                        //colorUpdate();
+                        FusionCharts.ready(drawCharts);
                     }
                 </script>
             </div>
             <!-- Map -->
             <div class="map" id="map">
-                <!-- API key -->
-                <script type="text/javascript" src="static/js/config.js"></script>
-                <!-- JS -->
-                <script type="text/javascript" src="static/js/logic.js"></script>
             </div>
+            <!-- API key -->
+            <script type="text/javascript" src="static/js/config.js"></script>
+            <!-- JS -->
+            <script type="text/javascript" src="static/js/logic.js"></script>
             <!-- Extra Zone -->
             <div id="gaiges">
+                <h3><span id="activeCounty"></span></h3>
                 <div id="dial">
-                    <script type="text/javascript"src="static/js/fCharts.js"></script>
                 </div>
                 <div id="meter">
-
                 </div>
+                <script type="text/javascript"src="static/js/fCharts.js"></script>
             </div>
         </div>
+        <script src="{{ url_for('static', filename='js/app.js') }}"></script>
     </body>
 
 </html>
