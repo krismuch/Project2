@@ -34,7 +34,7 @@ function getColor(name){
     data = getStats(name);
     grade = 0;
     tmin = 20;
-    tmax = 50;
+    tmax = 170;
     //console.log(data);
     if(data[1]>minT){
         if((data[1]>minT+tmin)&(data[1]<minT+tmax)){grade++;}
@@ -45,6 +45,13 @@ function getColor(name){
     if((data[2]>minP)&(data[2]<maxP)){
         b = (maxP-minP)/6
         if((data[2]>minP+b)&(data[2]<maxP-b)){grade++;}
+    }
+    else if((data[2]<minP-(b/2))||(data[2]>maxP+b)){
+        grade--;
+        grade--;
+        if(data[2]>maxP+minP+b){
+            grade--;
+        }
     }
     else{grade--;}
     if(grade>1){return "green";}
