@@ -1,7 +1,13 @@
-FusionCharts.ready(function() {
-    var x = 6;
-    var minPercip = 2;
-    var maxPercip = 8;
+
+
+FusionCharts.ready(drawCharts);
+function drawCharts(){
+    var buffer = (maxP-minP)/6;
+    try{
+        precip = getStats(selection)[2];}
+    catch(error){
+        console.log(error);
+    }
     var csatGauge = new FusionCharts({
         "type": "angulargauge",
         "renderAt": "dial",
@@ -13,7 +19,7 @@ FusionCharts.ready(function() {
             "chart": {
                 "caption": "Amount of Precipitation",
                 "lowerLimit": "0",
-                "upperLimit": maxPercip+2,
+                "upperLimit": maxP+minP,
                 "showValue": "1",
                 "numberSuffix": " inches",
                 "theme": "fusion",
@@ -23,29 +29,48 @@ FusionCharts.ready(function() {
             "colorRange": {
                 "color": [{
                     "minValue": "0",
-                    "maxValue": minPercip,
+                    "maxValue": minP,
                     "code": "#F2726F"
-                }, {
-                    "minValue": minPercip,
-                    "maxValue": maxPercip,
+                }, 
+                {
+                    "minValue": minP,
+                    "maxValue": minP+buffer,
                     "code": "#FFC533"
-                }, {
-                    "minValue": maxPercip,
-                    "maxValue": maxPercip+2,
+                }, 
+                {
+                    "minValue": minP+buffer,
+                    "maxValue": maxP-buffer,
                     "code": "#62B58F"
+                },
+                {
+                    "minValue": maxP-buffer,
+                    "maxValue": maxP,
+                    "code": "#FFC533"
+                },
+                {
+                    "minValue": maxP,
+                    "maxValue": maxP+minP,
+                    "code": "#F2726F"
+                    //"code": "#62B58F"
                 }]
             },
             "dials": {
                 "dial": [{
-                    "value": x
+                    "value": precip
                 }]
             }
         }
     });
     csatGauge.render();
 
-    var y = 60;
-    var tempMin = 20;
+    try{
+        pTemp = getStats(selection)[0];
+    }
+    catch(error){
+        console.log(error);
+    }
+    var y = pTemp;
+    var tBuff = 50;
 
     var chartObj = new FusionCharts({
         type: 'thermometer',
@@ -57,8 +82,8 @@ FusionCharts.ready(function() {
             "chart": {
                 "caption": "Temperature",
                 "subcaption": " ",
-                "lowerLimit": "-10",
-                "upperLimit": "110",
+                "lowerLimit": minT,
+                "upperLimit": minT+tBuff,
                 "decimals": "1",
                 "numberSuffix": "°F",
                 "showhovereffect": "1",
@@ -139,6 +164,4 @@ FusionCharts.ready(function() {
             }
         }*/
     });
-    chartObj.render();
-
-});
+    chartObj.render();}
